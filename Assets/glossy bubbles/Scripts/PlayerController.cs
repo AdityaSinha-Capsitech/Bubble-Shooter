@@ -1,10 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEditor;
 using UnityEngine;
 
 
@@ -32,7 +28,6 @@ public class PlayerController : MonoBehaviour
     {
         connectionRadius = 0.3f;
         effectObjects = new List<GameObject>();
-
     }
 
     private void Update()
@@ -48,8 +43,6 @@ public class PlayerController : MonoBehaviour
         score = 0;
         newBubble = FireCannon.fireInstance;
         sp = BubbleSpawner.instance;
-
-      
 
         GameObject player1 = collision.gameObject;
         GameObject player2 = gameObject;
@@ -106,7 +99,6 @@ public class PlayerController : MonoBehaviour
         UnityEngine.Color otherColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
 
         Collider2D[] hitsa = Physics2D.OverlapCircleAll(gameObject.transform.position, connectionRadius);
-        //Debug.Log("bubble -" + gameObject.name + "length" + hitsa.Length);
 
         foreach (Collider2D hit in hitsa)
         {
@@ -124,8 +116,6 @@ public class PlayerController : MonoBehaviour
     private void HandleClusterDestruction(GameObject g)
     {
         List<GameObject> cluster = FindConnectedBubbles(g);
-
-
 
         if (cluster.Count >= 3)
         {
@@ -228,14 +218,10 @@ public class PlayerController : MonoBehaviour
             GameObject current = queue.Dequeue();
             Collider2D[] hits = Physics2D.OverlapCircleAll(current.transform.position, connectionRadius);
 
-            //Debug.Log("bubble " + bubble.name);
             foreach (Collider2D hit in hits)
             {
                 if (hit.CompareTag("Bubbles") && !connected.Contains(hit.gameObject))
                 {
-
-                    //Debug.Log("hit " + hit.name);
-
                     if (hit.gameObject.transform.position.y >= 5f)
                     {
                         connectedToTop = true;
@@ -268,8 +254,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-
 
     IEnumerator DestroySomeDelay(GameObject b, GameObject g)
     {
